@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="Group2_Project3_Stock Market Database Queries.db" readonly="0" foreign_keys="0" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="849"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="all_stocks_2006_2018" custom_title="0" dock_id="1" table="4,20:mainall_stocks_2006_2018"/><dock_state state="000000ff00000000fd00000001000000020000036d00000226fc0100000001fb000000160064006f0063006b00420072006f007700730065003101000000000000036d0000016400ffffff000002580000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="AABA_2006_2018" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="85"/><column index="2" value="46"/><column index="3" value="46"/><column index="4" value="46"/><column index="5" value="46"/><column index="6" value="78"/><column index="7" value="41"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="AAPL_2006_2018" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="85"/><column index="2" value="46"/><column index="3" value="46"/><column index="4" value="46"/><column index="5" value="46"/><column index="6" value="78"/><column index="7" value="41"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="all_stocks_2006_2018" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="85"/><column index="2" value="46"/><column index="3" value="46"/><column index="4" value="46"/><column index="5" value="46"/><column index="6" value="70"/><column index="7" value="41"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">--1.	What are the daily returns for Coca-Cola (KO) in the year 2009?
+SELECT Name, Date, Close, LAG(Close) OVER (PARTITION BY Name ORDER BY Date) AS Previous_Close,
+(Close - LAG(Close) OVER (PARTITION BY Name ORDER BY Date)) / LAG(Close) OVER (PARTITION BY Name ORDER BY Date) AS Daily_Returns
+FROM KO_2006_2018
+
+--2.	What is the Current market trend?
+SELECT * FROM all_stocks_2006_2018
+ORDER BY Date DESC
+LIMIT 1
+
+--3.	What are the different types of stocks we have in the stock market dataset?
+SELECT DISTINCT(Name)
+FROM all_stocks_2006_2018
+
+--4.	What are the best stocks to invest in?
+SELECT Name, AVG(Close) AS AvgPrice
+FROM all_stocks_2006_2018
+GROUP BY Name
+ORDER BY AvgPrice DESC
+
+--5.	What was the current price of JPMorgan Chase(JPM)as at year 2017?
+SELECT Name, Date, Close
+FROM all_stocks_2006_2018
+WHERE Name = 'JPM'
+ORDER BY Date DESC
+LIMIT 1
+
+--6.	Calculate the total number (volume) of shares traded in Chevron (CVX).
+SELECT Name, SUM(Volume) AS AvgSharesSold
+FROM CVX_2006_2018
+WHERE Name = 'CVX'
+ORDER BY Volume DESC</sql><current_tab id="0"/></tab_sql></sqlb_project>
