@@ -31,6 +31,8 @@ iii.	Power Business Intelligence (Power BI)
 
 iv.	Microsoft Word
 
+v.	Microsoft Power Point
+
 ## ANALYSIS AND KEY FINDINGS
 •	The dataset consisted thirty-three (33) tables with six (6) columns respectively.
 
